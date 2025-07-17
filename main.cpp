@@ -17,7 +17,7 @@ int main(void)
 	const int pixelSize = 10;
 	const int pixelsWidth = screenWidth / pixelSize;
 	const int pixelsHeight = screenHeight / pixelSize;
-	const int frameDelay = 0;
+	
 	
 	InitWindow(screenWidth, screenHeight, "falling sand");
 
@@ -41,9 +41,10 @@ int main(void)
 
 
 	PixelMaterial currentMaterial = SAND;
+	int frameDelay = 0;
 	int currentDelay = 0;
 
-	SetTargetFPS(60);
+	SetTargetFPS(144);
 	//---------------------------------------------------------------------------------------
 
 	// Main game loop
@@ -51,12 +52,42 @@ int main(void)
 	{
 		// Update
 		//----------------------------------------------------------------------------------
+		if (IsKeyDown(KEY_P))
+		{
+			frameDelay++;
+		}
+		if (IsKeyDown(KEY_O))
+		{
+			frameDelay=0;
+		}
+		if (IsKeyDown(KEY_I))
+		{
+			frameDelay--;
+		}
+
+		if (IsKeyDown(KEY_ZERO))
+		{
+			currentMaterial = NOTHING;
+		}
+		if (IsKeyDown(KEY_ONE))
+		{
+			currentMaterial = SAND;
+		}
+		if (IsKeyDown(KEY_TWO))
+		{
+			currentMaterial = WATER;
+		}
+		if (IsKeyDown(KEY_THREE))
+		{
+			currentMaterial = MUD;
+		}
+
 		if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
 		{
 			Vector2 mousePos = GetMousePosition();
 			mousePos.x = (int)(mousePos.x/pixelSize);
 			mousePos.y = (int)(mousePos.y/pixelSize);
-			std::cout << mousePos.x << " " << mousePos.y << std::endl;
+			//std::cout << mousePos.x << " " << mousePos.y << std::endl;
 			pixels[(int)mousePos.x + (int)mousePos.y * pixelsWidth] = GetColorFromPixelMaterial(currentMaterial);
 			
 		}

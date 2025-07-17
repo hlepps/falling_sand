@@ -4,6 +4,8 @@
 enum PixelMaterial {
 	NOTHING = 0,
 	SAND = 1,
+	WATER = 2,
+	MUD = 3,
 };
 
 Color GetColorFromPixelMaterial(PixelMaterial pixelMaterial)
@@ -15,6 +17,12 @@ Color GetColorFromPixelMaterial(PixelMaterial pixelMaterial)
 		break;
 	case SAND:
 		return YELLOW;
+		break;
+	case WATER:
+		return BLUE;
+		break;
+	case MUD:
+		return BROWN;
 		break;
 	default:
 		break;
@@ -34,4 +42,6 @@ PixelMaterial GetPixelMaterialFromColor(Color color)
 {
 	if (CompareColors(color, BLACK)) return NOTHING;
 	if (CompareColors(color, YELLOW)) return SAND;
+	if (CompareColors(color, BLUE)) return WATER;
+	if (CompareColors(color, BROWN)) return MUD;
 }
