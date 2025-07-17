@@ -39,3 +39,5 @@
 
 # debug information files
 *.dwo
+/.vs
+/falling_sand/x64
