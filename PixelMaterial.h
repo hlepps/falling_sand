@@ -7,6 +7,7 @@ private:
 
 	bool _isLiquid = false;
 	bool _isGas = false;
+	bool _isSolid = false;
 
 	bool _isSinkable = false;
 	PixelMaterial* _materialWhenSinked;
@@ -25,7 +26,7 @@ private:
 	float _gravityForce = 0;
 
 public:
-	PixelMaterial(Color color, bool isLiquid, bool isGas,
+	PixelMaterial(Color color, bool isLiquid, bool isGas, bool isSolid,
 		bool isSinkable, PixelMaterial* materialWhenSinked,
 		int burnChance, PixelMaterial* materialWhenBurn,
 		float gravityForce)
@@ -33,6 +34,7 @@ public:
 		_color = color;
 		_isLiquid = isLiquid;
 		_isGas = isGas;
+		_isSolid = isSolid;
 		_isSinkable = isSinkable;
 		_materialWhenSinked = materialWhenSinked;
 		_burnChance = burnChance;
@@ -44,17 +46,20 @@ public:
 	static PixelMaterial* SAND;
 	static PixelMaterial* WATER;
 	static PixelMaterial* MUD;
+	static PixelMaterial* SMOKE;
 	static void Init()
 	{
-		NOTHING = new PixelMaterial(BLACK, false, false, false, NOTHING, 0, NOTHING, 0);
-		SAND = new PixelMaterial(YELLOW, false, false, true, MUD, 0, NOTHING, 1);
-		WATER = new PixelMaterial(BLUE, true, false, false, NOTHING, 0, NOTHING, 1);
-		MUD = new PixelMaterial(BROWN, false, false, true, MUD, 0, NOTHING, 1);
+		NOTHING = new PixelMaterial(BLACK, false, false, false, false, NOTHING, 0, NOTHING, 0);
+		SAND = new PixelMaterial(YELLOW, false, false, true, true, MUD, 0, NOTHING, 5);
+		WATER = new PixelMaterial(BLUE, true, false, false, false, NOTHING, 0, NOTHING, 3);
+		MUD = new PixelMaterial(BROWN, false, false, true, true, MUD, 0, NOTHING, 4);
+		SMOKE = new PixelMaterial(LIGHTGRAY, false, true, false, false, NOTHING, 0, NOTHING, -2);
 	}
 
 	Color GetColor() { return _color; }
 	bool IsLiquid() { return _isLiquid; }
 	bool IsGas() { return _isGas; }
+	bool IsSolid() { return _isSolid; }
 	bool IsSinkable() { return _isSinkable; }
 	PixelMaterial* GetMaterialWhenSinked() { return _materialWhenSinked; }
 	int GetBurnChance() { return _burnChance; }

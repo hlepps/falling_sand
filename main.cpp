@@ -14,7 +14,7 @@ int main(void)
 	//--------------------------------------------------------------------------------------
 	const int screenWidth = 1600;
 	const int screenHeight = 900;
-	const int pixelSize = 1;
+	const int pixelSize = 5;
 	const int pixelsWidth = screenWidth / pixelSize;
 	const int pixelsHeight = screenHeight / pixelSize;
 	
@@ -92,6 +92,10 @@ int main(void)
 		if (IsKeyDown(KEY_THREE))
 		{
 			currentMaterial = PixelMaterial::MUD;
+		}
+		if (IsKeyDown(KEY_FOUR))
+		{
+			currentMaterial = PixelMaterial::SMOKE;
 		}
 
 		if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))

@@ -4,6 +4,7 @@ PixelMaterial* PixelMaterial::NOTHING;
 PixelMaterial* PixelMaterial::SAND;
 PixelMaterial* PixelMaterial::WATER;
 PixelMaterial* PixelMaterial::MUD;
+PixelMaterial* PixelMaterial::SMOKE;
 
 bool CompareColors(Color a, Color b)
 {
@@ -20,4 +21,5 @@ PixelMaterial* GetPixelMaterialFromColor(Color color)
 	if (CompareColors(color, YELLOW)) return PixelMaterial::SAND;
 	if (CompareColors(color, BLUE)) return PixelMaterial::WATER;
 	if (CompareColors(color, BROWN)) return PixelMaterial::MUD;
+	if (CompareColors(color, LIGHTGRAY)) return PixelMaterial::SMOKE;
 }
