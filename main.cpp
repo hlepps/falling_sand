@@ -14,7 +14,7 @@ int main(void)
 	//--------------------------------------------------------------------------------------
 	const int screenWidth = 1600;
 	const int screenHeight = 900;
-	const int pixelSize = 10;
+	const int pixelSize = 1;
 	const int pixelsWidth = screenWidth / pixelSize;
 	const int pixelsHeight = screenHeight / pixelSize;
 	
@@ -28,6 +28,7 @@ int main(void)
 		pixels[i] = BLACK;
 	}
 	InitRules(pixelsWidth, pixelsHeight);
+	PixelMaterial::Init();
 
 	Image image;
 	image.data = pixels;
@@ -40,7 +41,7 @@ int main(void)
 	Texture2D texture = LoadTextureFromImage(image);
 
 
-	PixelMaterial currentMaterial = SAND;
+	PixelMaterial* currentMaterial = PixelMaterial::SAND;
 	int frameDelay = 0;
 	int currentDelay = 0;
 
@@ -67,19 +68,19 @@ int main(void)
 
 		if (IsKeyDown(KEY_ZERO))
 		{
-			currentMaterial = NOTHING;
+			currentMaterial = PixelMaterial::NOTHING;
 		}
 		if (IsKeyDown(KEY_ONE))
 		{
-			currentMaterial = SAND;
+			currentMaterial = PixelMaterial::SAND;
 		}
 		if (IsKeyDown(KEY_TWO))
 		{
-			currentMaterial = WATER;
+			currentMaterial = PixelMaterial::WATER;
 		}
 		if (IsKeyDown(KEY_THREE))
 		{
-			currentMaterial = MUD;
+			currentMaterial = PixelMaterial::MUD;
 		}
 
 		if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
@@ -88,7 +89,8 @@ int main(void)
 			mousePos.x = (int)(mousePos.x/pixelSize);
 			mousePos.y = (int)(mousePos.y/pixelSize);
 			//std::cout << mousePos.x << " " << mousePos.y << std::endl;
-			pixels[(int)mousePos.x + (int)mousePos.y * pixelsWidth] = GetColorFromPixelMaterial(currentMaterial);
+			pixels[(int)mousePos.x + (int)mousePos.y * pixelsWidth] = currentMaterial->GetColor();
+			std::cout << currentMaterial->GetColor().r << std::endl;
 			
 		}
 		//----------------------------------------------------------------------------------

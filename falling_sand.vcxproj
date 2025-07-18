@@ -132,6 +132,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PixelMaterial.cpp" />
+    <ClCompile Include="RulesCheck.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PixelMaterial.h" />
