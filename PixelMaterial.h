@@ -47,13 +47,15 @@ public:
 	static PixelMaterial* WATER;
 	static PixelMaterial* MUD;
 	static PixelMaterial* SMOKE;
+	static PixelMaterial* STONE;
 	static void Init()
 	{
 		NOTHING = new PixelMaterial(BLACK, false, false, false, false, NOTHING, 0, NOTHING, 0);
 		SAND = new PixelMaterial(YELLOW, false, false, true, true, MUD, 0, NOTHING, 5);
 		WATER = new PixelMaterial(BLUE, true, false, false, false, NOTHING, 0, NOTHING, 3);
-		MUD = new PixelMaterial(BROWN, false, false, true, true, MUD, 0, NOTHING, 4);
+		MUD = new PixelMaterial(BROWN, false, false, true, true, MUD, 0, NOTHING, 3);
 		SMOKE = new PixelMaterial(LIGHTGRAY, false, true, false, false, NOTHING, 0, NOTHING, -2);
+		STONE = new PixelMaterial(DARKGRAY, false, false, true, false, NOTHING, 0, NOTHING, 0);
 	}
 
 	Color GetColor() { return _color; }

@@ -72,6 +72,16 @@ void CheckRules(Color* pixels, int width, int height)
 							newPixels[(int)(x)+(int)(y) * width] = next->GetColor();
 							newPixels[(int)(x + leftright)+(int)(y + updown) * width] = current->GetColor();
 						}
+						else
+						{
+							updown = 0;
+							leftright = 0;
+						}
+					}
+					else
+					{
+						updown = 0;
+						leftright = 0;
 					}
 
 					for (int i = 0; i < abs(current->GetGravityForce()); i++)
@@ -79,7 +89,7 @@ void CheckRules(Color* pixels, int width, int height)
 						int sign = current->GetGravityForce() / abs(current->GetGravityForce());
 						if (y < height - (2 + (sign * i)) && y > i + 1)
 						{
-							PixelMaterial* next = GetPixelMaterialFromColor(pixels[(int)(x + leftright)+(int)((y + updown) + sign * (i + 1)) * width]);
+							PixelMaterial* next = GetPixelMaterialFromColor(newPixels[(int)(x + leftright)+(int)((y + updown) + sign * (i + 1)) * width]);
 							if (next->IsSolid() == false && next->IsLiquid() == false && next->IsGas() == false)
 							{
 								newPixels[(int)(x + leftright)+(int)((y + updown) + sign * i) * width] = next->GetColor();
@@ -88,8 +98,8 @@ void CheckRules(Color* pixels, int width, int height)
 							else
 							{
 								int side = (int)std::pow(-1, rand() % 2);
-								PixelMaterial* onSide = GetPixelMaterialFromColor(pixels[(int)(x + leftright + side) + (int)((y + updown) + sign * (i + 1)) * width]);
-								if (onSide == PixelMaterial::NOTHING)
+								PixelMaterial* onSide = GetPixelMaterialFromColor(newPixels[(int)(x + leftright + side) + (int)((y + updown) + sign * (i + 1)) * width]);
+								if (onSide->IsSolid() == false && onSide->IsLiquid() == false && onSide->IsGas() == false)
 								{
 									newPixels[(int)(x + leftright)+(int)((y + updown) + sign * i) * width] = onSide->GetColor();
 									newPixels[(int)(x + leftright + side) + (int)((y + updown) + sign * (i + 1)) * width] = current->GetColor();

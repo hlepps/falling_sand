@@ -73,7 +73,7 @@ int main(void)
 		if (GetMouseWheelMove())
 		{
 			currentRadius += GetMouseWheelMove() * 5;
-			if (currentRadius < 1) currentRadius == 1;
+			if (currentRadius < 1) currentRadius = 1;
 			if (currentRadius > 100 / pixelSize) currentRadius = 100 / pixelSize;
 		}
 
@@ -96,6 +96,10 @@ int main(void)
 		if (IsKeyDown(KEY_FOUR))
 		{
 			currentMaterial = PixelMaterial::SMOKE;
+		}
+		if (IsKeyDown(KEY_FIVE))
+		{
+			currentMaterial = PixelMaterial::STONE;
 		}
 
 		if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
