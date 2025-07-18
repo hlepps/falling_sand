@@ -44,6 +44,10 @@ int main(void)
 	PixelMaterial* currentMaterial = PixelMaterial::SAND;
 	int frameDelay = 0;
 	int currentDelay = 0;
+	int currentRadius = 100/pixelSize/2;
+	
+	// 0-100
+	int brushHardness = 20;
 
 	SetTargetFPS(144);
 	//---------------------------------------------------------------------------------------
@@ -64,6 +68,13 @@ int main(void)
 		if (IsKeyDown(KEY_I))
 		{
 			frameDelay--;
+		}
+		
+		if (GetMouseWheelMove())
+		{
+			currentRadius += GetMouseWheelMove() * 5;
+			if (currentRadius < 1) currentRadius == 1;
+			if (currentRadius > 100 / pixelSize) currentRadius = 100 / pixelSize;
 		}
 
 		if (IsKeyDown(KEY_ZERO))
@@ -86,11 +97,20 @@ int main(void)
 		if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
 		{
 			Vector2 mousePos = GetMousePosition();
-			mousePos.x = (int)(mousePos.x/pixelSize);
-			mousePos.y = (int)(mousePos.y/pixelSize);
+			int mousePosX = (int)(mousePos.x/pixelSize);
+			int mousePosY = (int)(mousePos.y/pixelSize);
+			for (int y = mousePosY - currentRadius / 2; y < mousePosY + currentRadius / 2; y++)
+			{
+				for (int x = mousePosX - currentRadius / 2; x < mousePosX + currentRadius / 2; x++)
+				{
+					if (y > 0 && y < pixelsHeight - 1 && x > 0 && x < pixelsWidth - 1)
+					{
+						if(rand()%100 < brushHardness)
+							pixels[x + y * pixelsWidth] = currentMaterial->GetColor();
+					}
+				}
+			}
 			//std::cout << mousePos.x << " " << mousePos.y << std::endl;
-			pixels[(int)mousePos.x + (int)mousePos.y * pixelsWidth] = currentMaterial->GetColor();
-			std::cout << currentMaterial->GetColor().r << std::endl;
 			
 		}
 		//----------------------------------------------------------------------------------
@@ -104,6 +124,9 @@ int main(void)
 		DrawTextureEx(texture, {0,0}, 0, pixelSize, WHITE);
 
 		DrawFPS(10, 10);
+
+		int rectSize = pixelSize * currentRadius;
+		DrawRectangle(GetMouseX() - rectSize/2, GetMouseY() - rectSize/2, rectSize, rectSize, { 125,125,0,50 });
 
 		EndDrawing();
 		//----------------------------------------------------------------------------------
